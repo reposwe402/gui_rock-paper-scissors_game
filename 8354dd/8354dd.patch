@@ -1,0 +1,89 @@
+diff --git a/game_logic.py b/game_logic.py
+new file mode 100644
+index 0000000..54f4a8d
+--- /dev/null
++++ b/game_logic.py
+@@ -0,0 +1,43 @@
++# Game Logic for Rock-Paper-Scissors
++
++from random import randint
++
++# List of players
++choices = ["rock", "paper", "scissors"]
++
++# Function to determine the outcome
++
++def spin(user_choice):
++    choose_number = randint(0, 2)
++    computer_choice = choices[choose_number]
++    
++    if user_choice == "Rock":
++        user_select_value = 0
++    elif user_choice == "Paper":
++        user_select_value = 1
++    elif user_choice == "Scissors":
++        user_select_value = 2
++
++    if user_select_value == 0:
++        if choose_number == 0:
++            return "Tie! - Computer: Bad luck"
++        elif choose_number == 1:
++            return "YOU Lose - Computer: I am better"
++        elif choose_number == 2:
++            return "YOU Won - Computer: You won by luck"
++
++    elif user_select_value == 1:
++        if choose_number == 1:
++            return "Tie! - Computer: Nice game"
++        elif choose_number == 0:
++            return "YOU Won - Computer: Shit how you are better"
++        elif choose_number == 2:
++            return "YOU Lose - Computer: booo"
++
++    elif user_select_value == 2:
++        if choose_number == 2:
++            return "Tie!"
++        elif choose_number == 0:
++            return "YOU Lose - Computer: I am playing this game since I was born"
++        elif choose_number == 1:
++            return "YOU Won"
+\ No newline at end of file
+diff --git a/ui.py b/ui.py
+new file mode 100644
+index 0000000..29ee3ff
+--- /dev/null
++++ b/ui.py
+@@ -0,0 +1,32 @@
++# User Interface for Rock-Paper-Scissors
++
++from tkinter import Tk, Label, Button, ttk
++from game_logic import spin
++
++# Create Object
++root = Tk()
++
++# Set geometry
++root.geometry("500x500")
++
++root.title("Rock-Paper-Scissors-Game")
++
++# Function to update the UI based on the game result
++def update_ui():
++    user_choice = user_select.get()
++    result = spin(user_choice)
++    wl_label.config(text=result)
++
++# Adding dropdown box for Rock, Paper, Scissors
++user_select = ttk.Combobox(root, value=["Rock", "Paper", "Scissors"])
++user_select.current(0)
++user_select.pack()
++
++# Add Labels, Button
++wl_label = Label(root, text="", font=("arial", 10), width=50, height=4)
++wl_label.pack()
++
++button = Button(root, text="Spin!", font=("bell mt", 10), command=update_ui)
++button.pack()
++
++root.mainloop()
+\ No newline at end of file
